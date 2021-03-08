@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.12.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.marcuschiu</groupId>
+	<artifactId>neo4j-embedded-example</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>neo4j-example</name>
+	<description>Demo project for Spring Data Neo4j and Spring Boot</description>
+
+	<properties>
+		<java.version>11</java.version>
+		<neo4j.ogm.version>3.2.11</neo4j.ogm.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+<!--		Spring Boot Starter Data Neo4j -->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-neo4j</artifactId>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-ogm-core</artifactId>
+			<version>${neo4j.ogm.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-ogm-bolt-driver</artifactId>
+			<version>${neo4j.ogm.version}</version>
+		</dependency>
+
+<!--		EMBEDDED NEO4J: START -->
+<!--		Option 1: From Maven Repository (Works both in Compile-Time and Runtime) -->
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+<!--		Option 2: From Local via System Scope (Works only in Compile-Time NOT Runtime) -->
+<!--		     see: https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#dependency-scope-->
+<!--		<dependency>-->
+<!--			<groupId>org.neo4j</groupId>-->
+<!--			<artifactId>neo4j</artifactId>-->
+<!--			<version>4.2.3</version>-->
+<!--			<scope>system</scope>-->
+<!--			<systemPath>${project.basedir}/system-scope/neo4j-super-4.2.3.jar</systemPath>-->
+<!--		</dependency>-->
+<!--		Option 3: From Static Local Repository (Works only in Compile-Time NOT Runtime) TODO figure out why -->
+<!--		<dependency>-->
+<!--			<groupId>local</groupId>-->
+<!--			<artifactId>neo4j-super</artifactId>-->
+<!--			<version>4.2.3</version>-->
+<!--			<scope>compile</scope>-->
+<!--		</dependency>-->
+<!--		Option 4: import jars into IntelliJ and run through Intellij -->
+<!--		        - File -> Project Structure -> Project Settings -> Libraries -> click add (+) -> navigate to folder containing jar files -->
+<!--		EMBEDDED NEO4J: END -->
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.16</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+    </dependencies>
+
+<!--	used in tandem with (Static Local Repository) -->
+	<repositories>
+		<repository>
+			<id>ProjectRepo</id>
+			<url>file://${project.basedir}/repository</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.16</version>
+						</path>
+					</annotationProcessorPaths>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
